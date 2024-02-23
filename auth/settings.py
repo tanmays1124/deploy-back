@@ -83,12 +83,12 @@ DATABASES = {
     'default':{
         'ENGINE': 'djongo',
         'NAME': 'quiz',
-        # "CLIENT": {
-        # 'host': 'mongodb+srv://admin:admin@cluster0.znbofaq.mongodb.net/',
-        # 'username': 'admin',
-        # 'password': 'admin',
+        "CLIENT": {
+        'host': 'mongodb+srv://admin:admin@cluster0.znbofaq.mongodb.net/',
+        'username': 'admin',
+        'password': 'admin',
        
-        # }
+        }
     }
 }
 
