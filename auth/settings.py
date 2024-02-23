@@ -85,10 +85,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'quiz',
         "CLIENT": {
-        'host': 'mongodb://admin:admin_password@13.235.128.128:27017/',
+        'host': 'mongodb+srv://admin:admin@cluster0.znbofaq.mongodb.net/',
         # 'username': 'admin',
         # 'password': 'admin',
-       
         }
     }
 }
