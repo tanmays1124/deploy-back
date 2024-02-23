@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'quiz',
         "CLIENT": {
-        'host': 'mongodb://admin:admin_password@13.126.139.114:27017/',
+        'host': 'mongodb://admin:admin_password@13.235.128.128:27017/',
         # 'username': 'admin',
         # 'password': 'admin',
        
@@ -153,8 +153,8 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000', 
-    'http://52.207.36.160:3000',
-    'http://13.233.229.225:3000'# Replace with the origin of your React app
+    'http://13.235.128.128:3000',
+    'http://13.233.229.225:3000',
 ]
 
 
