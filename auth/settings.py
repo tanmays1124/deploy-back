@@ -83,12 +83,12 @@ DATABASES = {
     'default':{
         'ENGINE': 'djongo',
         'NAME': 'quiz',
-        "CLIENT": {
-        'host': 'mongodb+srv://admin:admin@cluster0.znbofaq.mongodb.net/',
-        'username': 'admin',
-        'password': 'admin',
+        # "CLIENT": {
+        # 'host': 'mongodb+srv://admin:admin@cluster0.znbofaq.mongodb.net/',
+        # 'username': 'admin',
+        # 'password': 'admin',
        
-        }
+        # }
     }
 }
 
@@ -152,7 +152,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000', 
-    'http://52.207.36.160:3000'# Replace with the origin of your React app
+    # 'http://52.207.36.160:3000'# Replace with the origin of your React app
 ]
 
 
