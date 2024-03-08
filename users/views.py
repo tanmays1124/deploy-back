@@ -33,6 +33,27 @@ class LoginView(APIView):
 
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
+        
+        if user.is_superuser:
+            payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+            }
+
+            token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+            response = Response()
+
+            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.data = {
+                'jwt': token,
+                'id' : user.id,
+                'is_superuser': True
+            }
+            print("superuser")
+            return response
+
 
         payload = {
             'id': user.id,
@@ -47,9 +68,22 @@ class LoginView(APIView):
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
             'jwt': token,
-            'id' : user.id
+            'id' : user.id,
+            'is_superuser': False
         }
+        print("not superuser")
         return response
+
+
+
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+
 
 
 class UserView(APIView):
@@ -271,10 +305,12 @@ class QuizQuestionListView(generics.ListAPIView):
 class QuizQuestionCreateView(APIView):
     def post(self, request):
         serializer = QuizQuestionSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
+        print(serializer)
+        if serializer.is_valid():
+            print('valid')
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -478,3 +514,19 @@ def reset_password(request):
 
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+
+
+
+
+
+class AdminUserDeleteView(APIView):
+    def delete(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            user.delete()
+            return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

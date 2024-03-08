@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import QuizHistoryView, QuizQuestionCreateView, QuizQuestionListView, RegisterView, LoginView, UserProfileUpdate, UserView, LogoutView,UserProfileView,QuestionHistoryDetailView, PhotoView, forgot_password, reset_password
+from .views import QuizHistoryView, QuizQuestionCreateView, QuizQuestionListView, RegisterView, LoginView, UserProfileUpdate, UserView, LogoutView,UserProfileView,QuestionHistoryDetailView, PhotoView, forgot_password, reset_password, UserListView,AdminUserDeleteView
+
 
 urlpatterns = [
     path('register/', RegisterView.as_view()),
@@ -14,6 +15,8 @@ urlpatterns = [
     path('questionhistoryget/',QuestionHistoryDetailView.as_view(),name='history'),
     path('forgot_password/',forgot_password, name='forgot_password'),
     path('reset_password/', reset_password, name='reset_password'),
+    path('users/', UserListView.as_view(), name='user-list'),
+    path('adminuserdelete/<str:username>',AdminUserDeleteView.as_view(), name='admin_user_delete')
 
 
 
