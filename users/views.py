@@ -439,6 +439,22 @@ from django.contrib import messages
 
 
 
+def check_string(input_string):
+    has_uppercase = False
+    has_lowercase = False
+    has_number = False
+
+    for char in input_string:
+        if char.isupper():
+            has_uppercase = True
+        elif char.islower():
+            has_lowercase = True
+        elif char.isdigit():
+            has_number = True
+
+    return has_uppercase and has_lowercase and has_number
+
+
 import users.ip as ip
 @csrf_exempt
 def forgot_password(request):
